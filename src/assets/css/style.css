@@ -48,7 +48,7 @@
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--header-h); }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--header-h); overflow-x: clip; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0;
@@ -59,7 +59,7 @@ body {
   background: var(--white);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 img, svg { display: block; max-width: 100%; }
 img { height: auto; }
@@ -644,7 +644,6 @@ a.social:hover { background: var(--gold); border-color: var(--gold); color: var(
   content: ''; position: absolute; top: 0; left: 0; right: 1.75rem; bottom: 1.75rem; z-index: 3;
   background: var(--gold); transform-origin: right; transform: scaleX(0); pointer-events: none;
 }
-.js .about__media[data-reveal] { transform: none; }
 .js .about__media[data-reveal]::after { transform: scaleX(1); transition: transform 1.9s cubic-bezier(0.77, 0, 0.18, 1) 0.4s; }
 .js .about__media[data-reveal].is-in::after { transform: scaleX(0); }
 .js .about__media[data-reveal] .about__img { opacity: 0; transition: opacity 0.01s linear 0.3s; }
@@ -716,6 +715,13 @@ a.social:hover { background: var(--gold); border-color: var(--gold); color: var(
 
 /* ---------- Reveal animation ---------- */
 .js [data-reveal] { opacity: 0; transform: translateY(56px); transition: opacity 1.6s var(--ease), transform 1.8s var(--ease); transition-delay: var(--d, 0ms); }
+.js [data-reveal="left"] { transform: translateX(-90px); }
+.js [data-reveal="right"] { transform: translateX(90px); }
+.js [data-reveal="zoom"] { transform: scale(0.88); }
+@media (max-width: 700px) {
+  .js [data-reveal="left"] { transform: translateX(-40px); }
+  .js [data-reveal="right"] { transform: translateX(40px); }
+}
 .js [data-reveal].is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }

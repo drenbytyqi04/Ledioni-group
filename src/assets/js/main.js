@@ -99,10 +99,14 @@
   }
 
   /* ---------- Vonesa e shkallëzuar për elementet në rrjeta ---------- */
-  [['.services__grid', 3], ['.projects__grid', 3], ['.why__list', 2], ['.values', 2], ['.stats__grid', 4], ['.partners__list', 3]].forEach(function (g) {
+  [['.services__grid', 3, 1], ['.projects__grid', 3, 1], ['.why__list', 2, 1], ['.values', 2], ['.stats__grid', 4], ['.partners__list', 3]].forEach(function (g) {
     $$(g[0]).forEach(function (grid) {
       $$(':scope > [data-reveal]', grid).forEach(function (el, i) {
         el.style.setProperty('--d', (i % g[1]) * 200 + 'ms');
+        if (g[2] && !el.getAttribute('data-reveal')) {
+          var col = i % g[1];
+          el.setAttribute('data-reveal', g[1] === 2 ? (col ? 'right' : 'left') : (col === 0 ? 'left' : col === g[1] - 1 ? 'right' : ''));
+        }
       });
     });
   });
@@ -112,9 +116,9 @@
   if ('IntersectionObserver' in window && !reduceMotion) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('is-in'); ro.unobserve(en.target); }
+        en.target.classList.toggle('is-in', en.isIntersecting);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    }, { rootMargin: '-6% 0px -10% 0px', threshold: 0 });
     revealEls.forEach(function (el) { ro.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-in'); });

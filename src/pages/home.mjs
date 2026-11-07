@@ -78,7 +78,7 @@ export function home() {
   const about = `
 <section class="section about" id="rreth-nesh" aria-labelledby="about-title">
   <div class="container about__grid">
-    <div class="about__media" data-reveal>
+    <div class="about__media" data-reveal="left">
       <div class="about__frame"></div>
       ${picture(images.about, { widths: [480, 720, 1080], sizes: '(min-width: 1000px) 540px, 100vw', ratio: 1.15, cls: 'about__img' })}
       <div class="about__badge">
@@ -87,15 +87,15 @@ export function home() {
       </div>
     </div>
     <div class="about__content">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="right">
         <p class="eyebrow">Rreth Nesh</p>
         <h2 class="section-title" id="about-title">Infrastrukturë e ndërtuar me përgjegjësi</h2>
       </div>
-      <div class="about__text" data-reveal>
+      <div class="about__text" data-reveal="right">
         <p class="about__lead">Ledioni Group është një kompani ndërtimi nga Kosova, e themeluar në vitin 2021 dhe e udhëhequr nga drejtoresha menaxhuese <strong>Lendita Kryeziu</strong>.</p>
         <p>E specializuar në ndërtimin dhe rehabilitimin e urave, kompania realizon edhe ndërtimin e rrugëve, objekteve banesore dhe afariste, ujësjellësve dhe kanalizimeve. Puna jonë mbështetet në planifikim të kujdesshëm, zbatim të saktë dhe komunikim të hapur me investitorin.</p>
       </div>
-      <ul class="values" data-reveal>
+      <ul class="values" data-reveal="right">
         ${values
           .map(
             (v) => `<li class="values__item">
@@ -105,7 +105,7 @@ export function home() {
           )
           .join('')}
       </ul>
-      <a class="link-arrow" href="#sherbimet" data-reveal>Zbuloni shërbimet tona ${icon('arrowRight', { size: 18 })}</a>
+      <a class="link-arrow" href="#sherbimet" data-reveal="right">Zbuloni shërbimet tona ${icon('arrowRight', { size: 18 })}</a>
     </div>
   </div>
 </section>`;
@@ -115,7 +115,7 @@ export function home() {
   <div class="container">
     <div class="section-head-row">
       ${sectionHead({ eyebrow: 'Shërbimet', title: '<span id="services-title">Gjithçka që i duhet një projekti ndërtimor</span>' })}
-      <p class="section-head-row__text" data-reveal>Nga projektimi deri te punimet përfundimtare — me fokus të veçantë te urat dhe infrastruktura publike.</p>
+      <p class="section-head-row__text" data-reveal="right">Nga projektimi deri te punimet përfundimtare — me fokus të veçantë te urat dhe infrastruktura publike.</p>
     </div>
     <ul class="services__grid">
       ${services
@@ -144,7 +144,7 @@ export function home() {
     <ol class="process__list" data-animate>
       ${processSteps
         .map(
-          (s, i) => `<li class="process__step" data-reveal style="--d:${i * 220}ms">
+          (s, i) => `<li class="process__step" data-reveal="zoom" style="--d:${i * 220}ms">
         <span class="process__num">0${i + 1}</span>
         <span class="process__icon">${icon(s.icon, { size: 28 })}</span>
         <h3 class="process__title">${s.title}</h3>
@@ -161,7 +161,7 @@ export function home() {
   <div class="container">
     <div class="section-head-row">
       ${sectionHead({ eyebrow: 'Projektet', title: '<span id="projects-title">Projekte publike të realizuara</span>' })}
-      <div class="filters" role="group" aria-label="Filtro projektet" data-reveal>
+      <div class="filters" role="group" aria-label="Filtro projektet" data-reveal="right">
         <button class="filters__btn is-active" type="button" data-filter="all" aria-pressed="true">Të gjitha</button>
         ${Object.entries(categories).map(([k, v]) => `<button class="filters__btn" type="button" data-filter="${k}" aria-pressed="false">${v}</button>`).join('')}
       </div>
@@ -178,7 +178,7 @@ export function home() {
   <div class="container why__grid">
     <div class="why__intro">
       ${sectionHead({ eyebrow: 'Pse Ne?', title: '<span id="why-title">Partner i besueshëm për infrastrukturën publike</span>', text: 'Institucionet dhe investitorët na besojnë projekte ku cilësia dhe siguria nuk janë opsionale.' })}
-      <a class="btn btn--dark" href="#kontakti" data-reveal>Kërkoni një ofertë ${icon('arrowRight', { size: 18 })}</a>
+      <a class="btn btn--dark" href="#kontakti" data-reveal="left">Kërkoni një ofertë ${icon('arrowRight', { size: 18 })}</a>
     </div>
     <ul class="why__list">
       ${whyUs
@@ -199,7 +199,7 @@ export function home() {
   <div class="container partners__inner">
     <h2 class="partners__title" id="partners-title">Kemi bashkëpunuar me</h2>
     <ul class="partners__list">
-      ${partners.map((p) => `<li class="partners__item" data-reveal>${icon('landmark', { size: 26 })}<span>${p}</span></li>`).join('')}
+      ${partners.map((p) => `<li class="partners__item" data-reveal="zoom">${icon('landmark', { size: 26 })}<span>${p}</span></li>`).join('')}
     </ul>
   </div>
 </section>`;
@@ -209,9 +209,9 @@ export function home() {
   <div class="container faq__grid">
     <div>
       ${sectionHead({ eyebrow: 'Pyetje të Shpeshta', title: '<span id="faq-title">Përgjigje për pyetjet më të zakonshme</span>', text: 'Nuk e gjeni përgjigjen që kërkoni? Na kontaktoni dhe do t’ju përgjigjemi sa më shpejt.' })}
-      <a class="link-arrow" href="#kontakti" data-reveal>Bëni një pyetje ${icon('arrowRight', { size: 18 })}</a>
+      <a class="link-arrow" href="#kontakti" data-reveal="left">Bëni një pyetje ${icon('arrowRight', { size: 18 })}</a>
     </div>
-    <div class="faq__list" data-reveal>
+    <div class="faq__list" data-reveal="right">
       ${faq
         .map(
           (f, i) => `<details class="faq__item"${i === 0 ? ' open' : ''}>
@@ -228,7 +228,7 @@ export function home() {
 <section class="cta" aria-labelledby="cta-title">
   <div class="cta__media">${picture(images.cta, { widths: [768, 1280, 1920], sizes: '100vw' })}</div>
   <div class="cta__overlay"></div>
-  <div class="container cta__inner" data-reveal>
+  <div class="container cta__inner" data-reveal="zoom">
     <span class="cta__line" aria-hidden="true"></span>
     <h2 class="cta__title" id="cta-title">Keni një projekt në mendje?<br><span>Le ta ndërtojmë së bashku.</span></h2>
     <div class="cta__actions">
@@ -250,7 +250,7 @@ export function home() {
   <div class="container">
     ${sectionHead({ eyebrow: 'Kontakti', title: '<span id="contact-title">Le të flasim për projektin tuaj</span>', text: 'Na shkruani dhe do t’ju kontaktojmë sa më shpejt. Mund të na telefononi ose të na shkruani edhe në WhatsApp.', center: true })}
     <div class="contact__grid">
-      <form class="form" name="kontakt" ${formAttrs} novalidate data-form data-reveal>
+      <form class="form" name="kontakt" ${formAttrs} novalidate data-form data-reveal="left">
         <input type="hidden" name="form-name" value="kontakt">
         <input type="hidden" name="_subject" value="Mesazh i ri nga faqja e Ledioni Group">
         <p class="form__hp" aria-hidden="true"><label>Mos e plotësoni këtë fushë: <input name="adresa-web" tabindex="-1" autocomplete="off"></label></p>
@@ -290,7 +290,7 @@ export function home() {
         <div class="form__status" role="status" aria-live="polite" data-form-status></div>
       </form>
 
-      <aside class="contact__info" data-reveal>
+      <aside class="contact__info" data-reveal="right">
         <ul class="contact__list">
           <li class="contact__item">
             <span class="contact__icon">${icon('pin')}</span>

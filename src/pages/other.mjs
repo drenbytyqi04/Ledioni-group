@@ -47,13 +47,13 @@ ${pageHero({
 
 <section class="section project">
   <div class="container project__grid">
-    <div class="project__content">
+    <div class="project__content" data-reveal="left">
       <p class="eyebrow">Përshkrimi i projektit</p>
       <h2 class="section-title section-title--sm">${p.work} — ${p.location}</h2>
       ${p.description.map((d) => `<p>${d}</p>`).join('')}
       <p class="project__credit">${credit(p.image)}</p>
     </div>
-    <aside class="project__facts" aria-label="Të dhënat e projektit">
+    <aside class="project__facts" data-reveal="right" aria-label="Të dhënat e projektit">
       <dl>
         <div><dt>${icon('landmark', { size: 20 })} Klienti</dt><dd>${p.municipality}</dd></div>
         <div><dt>${icon('pin', { size: 20 })} Lokacioni</dt><dd>${p.location}, Kosovë</dd></div>
@@ -78,7 +78,7 @@ ${pageHero({
     <ul class="gallery" data-gallery>
       ${gallery
         .map(
-          (g, i) => `<li class="gallery__item">
+          (g, i) => `<li class="gallery__item" data-reveal="zoom">
         <a class="gallery__link" href="${imgUrl(g, 2000, undefined, 82)}" data-lightbox data-caption="${esc(g.alt)}" data-credit="${esc(g.author || '')}">
           <img src="${imgUrl(g, 900, (i % 4 === 0 || i % 4 === 3) ? 450 : 765)}" srcset="${srcset(g, [480, 900, 1300], (i % 4 === 0 || i % 4 === 3) ? 0.5 : 0.85)}" sizes="${(i % 4 === 0 || i % 4 === 3) ? '(min-width: 900px) 66vw, 100vw' : '(min-width: 900px) 33vw, 50vw'}" alt="${esc(g.alt)}" loading="lazy" decoding="async">
           <span class="gallery__zoom">${icon('zoom', { size: 22 })}</span>
@@ -87,7 +87,7 @@ ${pageHero({
         )
         .join('')}
     </ul>
-    <nav class="project-nav" aria-label="Projektet e tjera">
+    <nav class="project-nav" data-reveal aria-label="Projektet e tjera">
       <a class="project-nav__link" href="${root}projektet/${prev.slug}/">${icon('arrowLeft', { size: 18 })}<span><small>Projekti i mëparshëm</small>${prev.title} · ${prev.year}</span></a>
       <a class="project-nav__link project-nav__link--next" href="${root}projektet/${next.slug}/"><span><small>Projekti tjetër</small>${next.title} · ${next.year}</span>${icon('arrowRight', { size: 18 })}</a>
     </nav>
