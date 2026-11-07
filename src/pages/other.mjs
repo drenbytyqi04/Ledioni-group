@@ -153,7 +153,7 @@ ${pageHero({
     <p class="prose__updated">Përditësuar më: 7 nëntor 2026</p>
 
     <h2>1. Kush jemi</h2>
-    <p>Kontrollues i të dhënave është <strong>${site.legalName}</strong>, NUI ${site.nui}, me adresë në ${site.address.street}, ${site.address.village}, ${site.address.municipality}, ${site.address.country}. Për çdo pyetje rreth të dhënave tuaja na shkruani në <a href="mailto:${site.email}">${site.email}</a> ose na telefononi në <a href="tel:${site.phoneHref}">${site.phone}</a>.</p>
+    <p>Kontrollues i të dhënave është <strong>${site.legalName}</strong>, NUI ${site.nui}, me adresë në ${site.address.street}, ${site.address.village}, ${site.address.municipality}, ${site.address.country}. Për çdo pyetje rreth të dhënave tuaja na telefononi në <a href="tel:${site.phoneHref}">${site.phone}</a> ose na shkruani në <a href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>.</p>
 
     <h2>2. Cilat të dhëna mbledhim</h2>
     <p>Kur plotësoni formularin e kontaktit në këtë faqe, ne marrim të dhënat që ju vetë na jepni:</p>
@@ -185,7 +185,7 @@ ${pageHero({
     <p>Këto shërbime mund të përpunojnë të dhëna teknike, si adresa IP, sipas politikave të tyre të privatësisë.</p>
 
     <h2>7. Të drejtat tuaja</h2>
-    <p>Keni të drejtë të kërkoni qasje në të dhënat tuaja, korrigjimin ose fshirjen e tyre, kufizimin e përpunimit, si dhe të tërhiqni pëlqimin. Për këto kërkesa na shkruani në <a href="mailto:${site.email}">${site.email}</a>. Nëse mendoni se të drejtat tuaja janë shkelur, mund të ankoheni në Agjencinë për Informim dhe Privatësi (AIP).</p>
+    <p>Keni të drejtë të kërkoni qasje në të dhënat tuaja, korrigjimin ose fshirjen e tyre, kufizimin e përpunimit, si dhe të tërhiqni pëlqimin. Për këto kërkesa na kontaktoni në <a href="tel:${site.phoneHref}">${site.phone}</a> ose në <a href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>. Nëse mendoni se të drejtat tuaja janë shkelur, mund të ankoheni në Agjencinë për Informim dhe Privatësi (AIP).</p>
 
     <h2>8. Ndryshimet</h2>
     <p>Kjo politikë mund të përditësohet herë pas here. Versioni aktual publikohet gjithmonë në këtë faqe.</p>

@@ -16,7 +16,7 @@ npm run images   # rigjeneron favicon-at dhe og-image.jpg nga logoja (kërkon Pl
 
 | Çfarë | Skedari |
 |---|---|
-| Telefoni, email-i, adresa, domeni, rrjetet sociale | `src/data/site.mjs` |
+| Telefoni, adresa, domeni, rrjetet sociale | `src/data/site.mjs` |
 | Fotot (Unsplash). Këtu i zëvendësoni me fotot reale | `src/data/images.mjs` |
 | Tekstet: shërbimet, projektet, pyetjet, vlerat | `src/data/content.mjs` |
 | Ngjyrat dhe dizajni | `src/assets/css/style.css` (variablat në `:root`) |
@@ -32,14 +32,14 @@ npm run images   # rigjeneron favicon-at dhe og-image.jpg nga logoja (kërkon Pl
 ## Publikimi (Netlify, rekomandohet)
 1. Lidheni këtë repo në [Netlify](https://app.netlify.com). `netlify.toml` e konfiguron vetë ndërtimin (`node build.mjs`, dosja `dist`).
 2. **Formulari i kontaktit** funksionon me Netlify Forms. Te *Site configuration → Forms* aktivizoni *Form detection* dhe pastaj bëni sërish deploy.
-   Te *Site configuration → Forms → Form notifications* shtoni njoftim me email te `ledibytyqi5@gmail.com`, që mesazhet t'ju vijnë në email.
+   Te *Site configuration → Forms → Form notifications* shtoni njoftim me email-in ku doni t'ju vijnë mesazhet.
 3. Lidhni domenin (p.sh. `ledionigroup.com`). Linket kanonike dhe `sitemap.xml` e marrin domenin automatikisht.
 
 ## Publikimi në Vercel
 `vercel.json` e konfiguron vetë ndërtimin (`node build.mjs`, dosja `dist`). Domeni merret automatikisht.
-Pa variablën `FORM_ENDPOINT`, formulari hap programin e email-it të vizitorit me mesazhin të plotësuar.
+Pa variablën `FORM_ENDPOINT`, formulari hap WhatsApp me mesazhin e vizitorit të plotësuar.
 Që mesazhet të dërgohen direkt:
-1. Krijoni formular falas në [Formspree](https://formspree.io), me email-in `ledibytyqi5@gmail.com`.
+1. Krijoni formular falas në [Formspree](https://formspree.io), me email-in ku doni t'ju vijnë mesazhet.
 2. Në Vercel → *Settings → Environment Variables* shtoni `FORM_ENDPOINT` = adresa e Formspree (p.sh. `https://formspree.io/f/xxxx`).
 3. Bëni *Redeploy*.
 

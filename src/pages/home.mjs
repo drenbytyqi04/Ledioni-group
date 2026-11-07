@@ -241,8 +241,8 @@ export function home() {
   const formAttrs =
     site.formMode === 'endpoint'
       ? `action="${esc(site.formEndpoint)}" method="POST" data-endpoint="${esc(site.formEndpoint)}"`
-      : site.formMode === 'mailto'
-        ? `action="mailto:${site.email}" method="POST" data-endpoint="mailto" data-mailto="${site.email}"`
+      : site.formMode === 'whatsapp'
+        ? `action="https://wa.me/${site.whatsapp}" method="GET" data-endpoint="whatsapp" data-whatsapp="${site.whatsapp}"`
         : `action="${root}faleminderit/" method="POST" data-netlify="true" netlify-honeypot="adresa-web" data-endpoint="netlify"`;
 
   const contact = `
@@ -299,10 +299,6 @@ export function home() {
           <li class="contact__item">
             <span class="contact__icon">${icon('phone')}</span>
             <div><p class="contact__label">Telefoni</p><p class="contact__value"><a href="tel:${site.phoneHref}">${site.phone}</a></p></div>
-          </li>
-          <li class="contact__item">
-            <span class="contact__icon">${icon('mail')}</span>
-            <div><p class="contact__label">Email</p><p class="contact__value"><a href="mailto:${site.email}">${site.email}</a></p></div>
           </li>
         </ul>
         <a class="btn btn--whatsapp" href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener">Na shkruani në WhatsApp</a>

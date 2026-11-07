@@ -206,12 +206,10 @@
 
       var endpoint = form.getAttribute('data-endpoint');
       var data = new FormData(form);
-      if (endpoint === 'mailto') {
-        var body = 'Emri: ' + data.get('emri') + '\nEmail: ' + data.get('email') + '\nTelefoni: ' + (data.get('telefoni') || '-') + '\n\n' + data.get('mesazhi');
-        window.location.href = 'mailto:' + form.getAttribute('data-mailto') +
-          '?subject=' + encodeURIComponent('Mesazh nga faqja e Ledioni Group — ' + data.get('emri')) +
-          '&body=' + encodeURIComponent(body);
-        alertBox(true, 'Po hapet programi i email-it.', 'Mesazhi juaj është i plotësuar — mjafton ta dërgoni. Nëse nuk hapet, na shkruani direkt në ' + form.getAttribute('data-mailto') + '.');
+      if (endpoint === 'whatsapp') {
+        var text = 'Përshëndetje, ju shkruaj nga faqja e Ledioni Group.\n\nEmri: ' + data.get('emri') + '\nEmail: ' + data.get('email') + '\nTelefoni: ' + (data.get('telefoni') || '-') + '\n\n' + data.get('mesazhi');
+        window.open('https://wa.me/' + form.getAttribute('data-whatsapp') + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+        alertBox(true, 'Po hapet WhatsApp.', 'Mesazhi juaj është i plotësuar — mjafton ta dërgoni. Nëse WhatsApp nuk hapet, na telefononi direkt.');
         return;
       }
       var req;
@@ -231,7 +229,7 @@
         $$('.field', form).forEach(function (f) { f.classList.remove('has-error'); });
         alertBox(true, 'Faleminderit! Mesazhi juaj u dërgua.', 'Do t’ju kontaktojmë sa më shpejt.');
       }).catch(function () {
-        alertBox(false, 'Mesazhi nuk u dërgua.', 'Ju lutemi provoni përsëri ose na kontaktoni direkt në telefon, email ose WhatsApp.');
+        alertBox(false, 'Mesazhi nuk u dërgua.', 'Ju lutemi provoni përsëri ose na kontaktoni direkt në telefon ose WhatsApp.');
       }).then(function () { setLoading(false); });
     });
   }

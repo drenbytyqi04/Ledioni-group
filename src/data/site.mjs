@@ -24,7 +24,6 @@ export const site = {
   phone: '+383 49 172 995',
   phoneHref: '+38349172995',
   whatsapp: '38349172995',
-  email: 'ledibytyqi5@gmail.com',
 
   address: {
     street: 'Rr. Bajram Bytyqi, p.n.',
@@ -39,9 +38,9 @@ export const site = {
   //  - Bosh ('') = përdoret Netlify Forms (funksionon automatikisht kur faqja hostohet në Netlify).
   //  - Ose vendosni një adresë Formspree, p.sh. 'https://formspree.io/f/abcdwxyz'
   //    (ose variablën FORM_ENDPOINT në Vercel/Netlify).
-  //  - Në Vercel pa FORM_ENDPOINT: formulari hap programin e email-it me mesazhin të plotësuar.
+  //  - Në Vercel pa FORM_ENDPOINT: formulari hap WhatsApp me mesazhin të plotësuar.
   formEndpoint: process.env.FORM_ENDPOINT || '',
-  formMode: process.env.FORM_ENDPOINT ? 'endpoint' : process.env.VERCEL ? 'mailto' : 'netlify',
+  formMode: process.env.FORM_ENDPOINT ? 'endpoint' : process.env.VERCEL ? 'whatsapp' : 'netlify',
 
   // Rrjetet sociale — vendosni linket kur t'i keni. Bosh = ikona nuk shfaqet si link.
   social: {

@@ -139,7 +139,6 @@ function footer({ root }) {
         <ul class="site-footer__contact">
           <li>${icon('pin', { size: 18 })}<span>${site.address.street}<br>${site.address.village}, ${site.address.municipality}, ${site.address.country}</span></li>
           <li>${icon('phone', { size: 18 })}<a href="tel:${site.phoneHref}">${site.phone}</a></li>
-          <li>${icon('mail', { size: 18 })}<a href="mailto:${site.email}">${site.email}</a></li>
         </ul>
       </div>
     </div>
@@ -168,7 +167,6 @@ export function organizationLd() {
     image: `${site.url}/assets/img/og-image.jpg`,
     description: 'Kompani arkitekture dhe ndërtimi nga Suhareka, e specializuar në ndërtimin dhe rehabilitimin e urave dhe në infrastrukturën publike.',
     telephone: site.phoneHref,
-    email: site.email,
     foundingDate: site.foundingDate,
     taxID: site.nui,
     address: {
