@@ -144,7 +144,7 @@ export function home() {
     <ol class="process__list" data-animate>
       ${processSteps
         .map(
-          (s, i) => `<li class="process__step" data-reveal style="--d:${i * 90}ms">
+          (s, i) => `<li class="process__step" data-reveal style="--d:${i * 220}ms">
         <span class="process__num">0${i + 1}</span>
         <span class="process__icon">${icon(s.icon, { size: 28 })}</span>
         <h3 class="process__title">${s.title}</h3>
@@ -183,7 +183,7 @@ export function home() {
     <ul class="why__list">
       ${whyUs
         .map(
-          (w, i) => `<li class="why__item" data-reveal style="--d:${i * 80}ms">
+          (w, i) => `<li class="why__item" data-reveal style="--d:${i * 180}ms">
         <span class="why__icon">${icon(w.icon, { size: 28 })}</span>
         <h3 class="why__title">${w.title}</h3>
         <p class="why__text">${w.text}</p>

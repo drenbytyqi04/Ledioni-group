@@ -102,7 +102,7 @@
   [['.services__grid', 3], ['.projects__grid', 3], ['.why__list', 2], ['.values', 2], ['.stats__grid', 4], ['.partners__list', 3]].forEach(function (g) {
     $$(g[0]).forEach(function (grid) {
       $$(':scope > [data-reveal]', grid).forEach(function (el, i) {
-        el.style.setProperty('--d', (i % g[1]) * 110 + 'ms');
+        el.style.setProperty('--d', (i % g[1]) * 200 + 'ms');
       });
     });
   });
@@ -126,7 +126,7 @@
     var end = parseInt(el.getAttribute('data-count'), 10);
     var plain = el.getAttribute('data-plain') === '1';
     var start = plain ? Math.max(0, end - 25) : 0;
-    var dur = 1600, t0 = null;
+    var dur = 2600, t0 = null;
     var step = function (t) {
       if (!t0) t0 = t;
       var p = Math.min((t - t0) / dur, 1);
