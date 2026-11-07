@@ -49,7 +49,7 @@ export default function HomePage() {
             </div>
             <Reveal className="about__text" dir="right">
               <p className="about__lead">
-                Ledioni Group është një kompani ndërtimi nga Kosova, e themeluar në vitin 2021 dhe e udhëhequr nga drejtoresha menaxhuese <strong>Lendita Kryeziu</strong>.
+                Ledioni Group është një kompani ndërtimi nga Kosova, e themeluar në vitin 2021, me seli në Semetisht të Suharekës.
               </p>
               <p>
                 E specializuar në ndërtimin dhe rehabilitimin e urave, kompania realizon edhe ndërtimin e rrugëve, objekteve banesore dhe afariste, ujësjellësve dhe kanalizimeve. Puna jonë mbështetet në planifikim të kujdesshëm, zbatim të saktë dhe komunikim të hapur me investitorin.

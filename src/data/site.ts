@@ -10,7 +10,6 @@ export const site = {
   nui: '811561308',
   founded: 2021,
   foundingDate: '2021-04-13',
-  director: 'Lendita Kryeziu',
 
   // Domeni i faqes. Në Netlify merret automatikisht nga variabla URL.
   // Nëse keni domen tjetër, vendoseni këtu ose si SITE_URL.
