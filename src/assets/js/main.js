@@ -7,16 +7,36 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Header: gjendja gjatë scroll-it ---------- */
+  /* ---------- Header, progresi dhe paralaksi gjatë scroll-it ---------- */
   var header = $('[data-header]');
   var toTop = $('[data-to-top]');
-  var onScroll = function () {
-    var y = window.scrollY;
+  var progress = $('[data-progress]');
+  var heroMedia = $('.hero__media');
+  var parallax = reduceMotion ? [] : $$('.cta__media');
+  var ticking = false;
+  var update = function () {
+    ticking = false;
+    var y = window.scrollY, vh = window.innerHeight;
     if (header) header.classList.toggle('is-scrolled', y > 40);
     if (toTop) toTop.classList.toggle('is-visible', y > 700);
+    if (progress) {
+      var max = document.documentElement.scrollHeight - vh;
+      progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(y / max, 1) : 0) + ')';
+    }
+    if (!reduceMotion && heroMedia && y < vh * 1.2) {
+      heroMedia.style.transform = 'translate3d(0,' + (y * 0.3).toFixed(1) + 'px,0)';
+    }
+    parallax.forEach(function (el) {
+      var r = el.parentNode.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      var p = (r.top + r.height / 2 - vh / 2) / vh; // -1 … 1
+      el.style.transform = 'translate3d(0,' + (p * -60).toFixed(1) + 'px,0)';
+    });
   };
+  var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
 
   if (toTop) toTop.addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
@@ -43,8 +63,52 @@
     window.addEventListener('resize', function () { if (window.innerWidth > 1100) setMenu(false); });
   }
 
+  /* ---------- Titujt ndahen në fjalë për animacion ---------- */
+  var splitWords = function (root) {
+    var count = 0;
+    var walk = function (node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var parts = n.textContent.split(/(\s+)/);
+          var frag = document.createDocumentFragment();
+          parts.forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var outer = document.createElement('span');
+            outer.className = 'w';
+            var inner = document.createElement('span');
+            inner.textContent = part;
+            inner.style.setProperty('--wi', count++);
+            outer.appendChild(inner);
+            frag.appendChild(outer);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') {
+          walk(n);
+        }
+      });
+    };
+    walk(root);
+  };
+  if (!reduceMotion) {
+    $$('[data-reveal] .section-title, [data-reveal].cta__inner .cta__title').forEach(function (t) {
+      splitWords(t);
+      var host = t.closest('[data-reveal]');
+      if (host) host.classList.add('has-words');
+    });
+  }
+
+  /* ---------- Vonesa e shkallëzuar për elementet në rrjeta ---------- */
+  [['.services__grid', 3], ['.projects__grid', 3], ['.why__list', 2], ['.values', 2], ['.stats__grid', 4], ['.partners__list', 3]].forEach(function (g) {
+    $$(g[0]).forEach(function (grid) {
+      $$(':scope > [data-reveal]', grid).forEach(function (el, i) {
+        el.style.setProperty('--d', (i % g[1]) * 110 + 'ms');
+      });
+    });
+  });
+
   /* ---------- Shfaqja e elementeve gjatë scroll-it ---------- */
-  var revealEls = $$('[data-reveal]');
+  var revealEls = $$('[data-reveal], [data-animate]');
   if ('IntersectionObserver' in window && !reduceMotion) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {

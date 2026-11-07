@@ -64,6 +64,7 @@ ${jsonLd.map((d) => `<script type="application/ld+json">${JSON.stringify(d)}</sc
 </head>
 <body class="${bodyClass}">
 <a class="skip-link" href="#main">Kalo te përmbajtja</a>
+<div class="scroll-progress" aria-hidden="true" data-progress></div>
 ${header({ root, solid: headerSolid })}
 <main id="main">
 ${body}

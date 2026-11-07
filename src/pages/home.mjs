@@ -47,7 +47,7 @@ export function home() {
   <div class="hero__overlay"></div>
   <div class="container hero__inner">
     <p class="eyebrow eyebrow--light hero__eyebrow">Arkitekturë &amp; Ndërtim <span class="hero__eyebrow-loc"><span class="hero__eyebrow-sep"></span> Suharekë, Kosovë</span></p>
-    <h1 class="hero__title" id="hero-title">Ndërtojmë ura.<br><span>Ndërtojmë të ardhmen.</span></h1>
+    <h1 class="hero__title" id="hero-title"><span class="hero__line"><span>Ndërtojmë ura.</span></span> <span class="hero__line hero__line--gold"><span>Ndërtojmë të ardhmen.</span></span></h1>
     <p class="hero__lead">Arkitekturë, ndërtim dhe infrastrukturë publike me cilësi dhe përgjegjësi.</p>
     <div class="hero__actions">
       <a class="btn btn--gold btn--lg" href="#projektet">Shiko Projektet ${icon('arrowRight', { size: 18 })}</a>
@@ -141,7 +141,7 @@ export function home() {
 <section class="section process" id="si-punojme" aria-labelledby="process-title">
   <div class="container">
     ${sectionHead({ eyebrow: 'Si Punojmë', title: '<span id="process-title">Një proces i qartë, nga ideja te dorëzimi</span>', center: true })}
-    <ol class="process__list">
+    <ol class="process__list" data-animate>
       ${processSteps
         .map(
           (s, i) => `<li class="process__step" data-reveal style="--d:${i * 90}ms">
