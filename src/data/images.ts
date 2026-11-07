@@ -6,7 +6,16 @@
 //    2. ndryshoni `src` më poshtë në p.sh. 'assets/img/projektet/ura-1.jpg'
 // =============================================================
 
-const unsplash = (photo, author, username, alt, focus = 'center') => ({
+export type Img = {
+  src: string;
+  unsplash?: boolean;
+  author?: string;
+  authorUrl?: string;
+  alt: string;
+  focus?: string;
+};
+
+const unsplash = (photo: string, author: string, username: string, alt: string, focus = 'center'): Img => ({
   src: `https://images.unsplash.com/photo-${photo}`,
   unsplash: true,
   author,
@@ -75,7 +84,7 @@ export const images = {
 };
 
 /** Ndërton URL-në e Unsplash me madhësinë dhe cilësinë e duhur. */
-export function imgUrl(img, w, h, q = 75) {
+export function imgUrl(img: Img, w: number, h?: number, q = 75): string {
   if (!img.unsplash) return img.src;
   const p = new URLSearchParams({ auto: 'format', fit: 'crop', w: String(w), q: String(q) });
   if (h) p.set('h', String(h));
@@ -84,7 +93,7 @@ export function imgUrl(img, w, h, q = 75) {
 }
 
 /** srcset për foto responsive. ratio = lartësia/gjerësia (opsionale). */
-export function srcset(img, widths, ratio, q = 75) {
+export function srcset(img: Img, widths: number[], ratio?: number, q = 75): string {
   if (!img.unsplash) return '';
   return widths.map((w) => `${imgUrl(img, w, ratio ? Math.round(w * ratio) : undefined, q)} ${w}w`).join(', ');
 }

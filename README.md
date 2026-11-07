@@ -2,58 +2,48 @@
 
 Faqja e internetit e **LEDIONI GROUP SH.P.K.** (Architecture & Construction), Semetisht, Suharekë.
 
-Është faqe statike, e shpejtë dhe pa varësi të jashtme. Kërkon vetëm **Node.js 18+**.
+**Teknologjia:** [Next.js 16](https://nextjs.org) (App Router, TypeScript), [React 19](https://react.dev) dhe [Motion](https://motion.dev) (ish Framer Motion) për animacionet. Faqja hostohet në [Vercel](https://vercel.com).
 
 ## Komandat
 
 ```bash
-npm run build    # ndërton faqen në dosjen dist/
-npm run dev      # ndërton faqen dhe e hap në http://localhost:4173
-npm run images   # rigjeneron favicon-at dhe og-image.jpg nga logoja (kërkon Playwright)
+npm install      # instalon paketat (vetëm herën e parë)
+npm run dev      # hap faqen për zhvillim në http://localhost:3000
+npm run build    # ndërton versionin për publikim
+npm start        # nis versionin e ndërtuar
 ```
 
 ## Ku ndryshohen gjërat
 
 | Çfarë | Skedari |
 |---|---|
-| Telefoni, adresa, domeni, rrjetet sociale | `src/data/site.mjs` |
-| Fotot (Unsplash). Këtu i zëvendësoni me fotot reale | `src/data/images.mjs` |
-| Tekstet: shërbimet, projektet, pyetjet, vlerat | `src/data/content.mjs` |
-| Ngjyrat dhe dizajni | `src/assets/css/style.css` (variablat në `:root`) |
-| Logoja | `src/assets/img/logo.svg` (pastaj `npm run images`) |
+| Telefoni, adresa, domeni, rrjetet sociale, formulari | `src/data/site.ts` |
+| Fotot (Unsplash). Këtu i zëvendësoni me fotot reale | `src/data/images.ts` |
+| Tekstet: shërbimet, projektet, pyetjet, vlerat | `src/data/content.ts` |
+| Faqja kryesore (seksionet) | `src/app/page.tsx` |
+| Animacionet (Motion) | `src/components/motion.tsx`, `src/components/home.tsx` |
+| Ngjyrat dhe dizajni | `src/app/globals.css` (variablat në `:root`) |
+| Logoja dhe ikonat | `public/` |
 
 ### Fotot reale të projekteve
-1. Vendosni foton, p.sh. `src/assets/img/projektet/ura-suhareke-1.jpg`.
-2. Te `src/data/images.mjs` shtoni p.sh.
-   `uraSuhareke1: { src: 'assets/img/projektet/ura-suhareke-1.jpg', alt: 'Përshkrimi i fotos' }`.
-3. Te `src/data/content.mjs`, përdoreni te projekti (`image` / `gallery`).
+1. Vendosni foton në `public/projektet/`, p.sh. `public/projektet/ura-suhareke-1.jpg`.
+2. Te `src/data/images.ts` shtoni p.sh.
+   `uraSuhareke1: { src: '/projektet/ura-suhareke-1.jpg', alt: 'Përshkrimi i fotos' }`.
+3. Te `src/data/content.ts`, përdoreni te projekti (`image` / `gallery`).
 4. Kur të gjitha fotot të jenë reale, hiqni shënimin "Fotot janë ilustruese".
 
-## Publikimi (Netlify, rekomandohet)
-1. Lidheni këtë repo në [Netlify](https://app.netlify.com). `netlify.toml` e konfiguron vetë ndërtimin (`node build.mjs`, dosja `dist`).
-2. **Formulari i kontaktit** funksionon me Netlify Forms. Te *Site configuration → Forms* aktivizoni *Form detection* dhe pastaj bëni sërish deploy.
-   Te *Site configuration → Forms → Form notifications* shtoni njoftim me email-in ku doni t'ju vijnë mesazhet.
-3. Lidhni domenin (p.sh. `ledionigroup.com`). Linket kanonike dhe `sitemap.xml` e marrin domenin automatikisht.
+## Animacionet
+- Të gjitha bëhen me **Motion**. Elementet hyjnë kur dalin në ekran dhe dalin kur largohen (slide in / slide out).
+- Komponentët kryesorë: `Reveal`, `SplitTitle` (tituj fjalë pas fjale), `StaggerGrid`, `Counter` dhe `Eyebrow`.
+- Kush ka aktivizuar "Reduce motion" në pajisje e sheh faqen pa lëvizje (`MotionConfig reducedMotion="user"`).
 
-## Publikimi në Vercel
-`vercel.json` e konfiguron vetë ndërtimin (`node build.mjs`, dosja `dist`). Domeni merret automatikisht.
-Pa variablën `FORM_ENDPOINT`, formulari hap WhatsApp me mesazhin e vizitorit të plotësuar.
-Që mesazhet të dërgohen direkt:
-1. Krijoni formular falas në [Formspree](https://formspree.io), me email-in ku doni t'ju vijnë mesazhet.
-2. Në Vercel → *Settings → Environment Variables* shtoni `FORM_ENDPOINT` = adresa e Formspree (p.sh. `https://formspree.io/f/xxxx`).
-3. Bëni *Redeploy*.
+## Formulari i kontaktit
+- Pa konfigurim, formulari hap **WhatsApp** me mesazhin e vizitorit të plotësuar.
+- Që mesazhet të dërgohen direkt:
+  1. Krijoni një formular falas te [Formspree](https://formspree.io).
+  2. Në Vercel → *Settings → Environment Variables* shtoni `NEXT_PUBLIC_FORM_ENDPOINT` me adresën e tij.
+  3. Bëni *Redeploy*.
 
-Për host tjetër (cPanel etj.):
-- Ndërtojeni faqen me `npm run build` dhe ngarkoni dosjen `dist/`.
-- Formulari: krijoni një formular falas në [Formspree](https://formspree.io) dhe vendosni adresën te `formEndpoint` në `src/data/site.mjs`.
-- Domeni: vendoseni te `url` në `src/data/site.mjs`.
-
-## Struktura
-```
-build.mjs              ndërtuesi i faqes
-src/data/              të dhënat dhe tekstet
-src/pages/             shabllonet e faqeve
-src/lib/               layout-i, ikonat, logoja
-src/assets/            CSS, JS, imazhet
-scripts/               serveri lokal dhe gjeneruesi i ikonave
-```
+## Publikimi
+Çdo `git push` në GitHub publikohet automatikisht nga Vercel. `vercel.json` e vendos framework-un në Next.js.
+Domeni merret automatikisht. Për domen tjetër vendosni `NEXT_PUBLIC_SITE_URL`.

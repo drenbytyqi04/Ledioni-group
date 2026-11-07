@@ -2,9 +2,17 @@
 //  Tekstet e faqes. Të gjitha të dhënat bazohen në informacione
 //  reale të kompanisë (ARBK / e-Prokurimi). Mos shtoni fakte të pa verifikuara.
 // =============================================================
-import { images } from './images.mjs';
+import { images, type Img } from './images';
 
-export const stats = [
+export type Service = { id: string; icon: string; title: string; short?: string; text: string; image: Img; featured?: boolean };
+export type Project = {
+  slug: string; title: string; municipality: string; location: string; year: number;
+  category: 'ura' | 'rehabilitim'; work: string; summary: string; description: string[];
+  image: Img; gallery: Img[];
+};
+export type Stat = { value: number; label: string; prefix?: string; suffix?: string; plain?: boolean };
+
+export const stats: Stat[] = [
   { value: 2021, label: 'Viti i themelimit', prefix: 'Që nga', plain: true },
   { value: 6, label: 'Projekte publike të realizuara' },
   { value: 3, label: 'Komuna partnere' },
@@ -18,7 +26,7 @@ export const values = [
   { icon: 'eye', title: 'Transparencë', text: 'Komunikim i hapur me investitorin në çdo fazë.' },
 ];
 
-export const services = [
+export const services: Service[] = [
   {
     id: 'ura',
     icon: 'bridge',
@@ -84,7 +92,7 @@ export const faq = [
 //  Projektet. Fotot janë ilustruese (Unsplash) derisa të
 //  zëvendësohen me fotot reale të projekteve.
 // -------------------------------------------------------------
-export const projects = [
+export const projects: Project[] = [
   {
     slug: 'ndertimi-dhe-zgjerimi-i-dy-urave-suhareke',
     title: 'Ndërtimi dhe zgjerimi i dy urave',
@@ -183,7 +191,7 @@ export const projects = [
   },
 ];
 
-export const categories = {
+export const categories: Record<Project['category'], string> = {
   ura: 'Ura',
   rehabilitim: 'Rehabilitim',
 };

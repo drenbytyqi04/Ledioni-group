@@ -15,6 +15,7 @@ export const site = {
   // Domeni i faqes. Në Netlify merret automatikisht nga variabla URL.
   // Nëse keni domen tjetër, vendoseni këtu ose si SITE_URL.
   url: (
+    process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.SITE_URL ||
     process.env.URL || // Netlify
     (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) || // Vercel
@@ -35,17 +36,15 @@ export const site = {
   mapQuery: 'Semetisht, Suharekë, Kosovë',
 
   // Formulari i kontaktit:
-  //  - Bosh ('') = përdoret Netlify Forms (funksionon automatikisht kur faqja hostohet në Netlify).
+  //  - Bosh ('') = formulari hap WhatsApp me mesazhin e vizitorit të plotësuar.
   //  - Ose vendosni një adresë Formspree, p.sh. 'https://formspree.io/f/abcdwxyz'
-  //    (ose variablën FORM_ENDPOINT në Vercel/Netlify).
-  //  - Në Vercel pa FORM_ENDPOINT: formulari hap WhatsApp me mesazhin të plotësuar.
-  formEndpoint: process.env.FORM_ENDPOINT || '',
-  formMode: process.env.FORM_ENDPOINT ? 'endpoint' : process.env.VERCEL ? 'whatsapp' : 'netlify',
+  //    (ose variablën NEXT_PUBLIC_FORM_ENDPOINT në Vercel) që mesazhet të dërgohen direkt.
+  formEndpoint: process.env.NEXT_PUBLIC_FORM_ENDPOINT || '',
 
   // Rrjetet sociale — vendosni linket kur t'i keni. Bosh = ikona nuk shfaqet si link.
   social: {
     facebook: '',
     instagram: '',
     linkedin: '',
-  },
+  } as Record<'facebook' | 'instagram' | 'linkedin', string>,
 };
