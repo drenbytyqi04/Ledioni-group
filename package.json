@@ -1,0 +1,15 @@
+{
+  "name": "ledioni-group-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Faqja zyrtare e LEDIONI GROUP SH.P.K. — Architecture & Construction",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs && node scripts/serve.mjs",
+    "images": "node scripts/generate-images.mjs"
+  }
+}
