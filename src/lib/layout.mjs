@@ -92,16 +92,39 @@ function header({ root, solid }) {
       <span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span>
     </button>
   </div>
-  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
-    <ul class="mobile-menu__list">
-      ${navItems.map((n, i) => `<li style="--i:${i}"><a href="${root}#${n.id}" data-nav="${n.id}">${n.label}</a></li>`).join('')}
-    </ul>
+</header>
+${mobileMenu({ root })}`;
+}
+
+// Menyja e celularit: panel që rrëshqet nga e djathta. Qëndron jashtë <header>
+// që të mbulojë gjithë lartësinë e ekranit edhe kur header-i ka efekt blur.
+function mobileMenu({ root }) {
+  return `<div class="mobile-menu" id="mobile-menu" data-mobile-menu inert aria-hidden="true">
+  <div class="mobile-menu__overlay" data-menu-close></div>
+  <div class="mobile-menu__panel" role="dialog" aria-modal="true" aria-label="Menyja">
+    <div class="mobile-menu__head">
+      <img class="mobile-menu__logo" src="${root}assets/img/logo-light.svg" alt="Ledioni Group" width="88" height="69">
+      <button class="mobile-menu__close" type="button" aria-label="Mbyll menynë" data-menu-close>${icon('close', { size: 24 })}</button>
+    </div>
+    <nav aria-label="Menyja në celular">
+      <ul class="mobile-menu__list">
+        ${navItems
+          .map(
+            (n, i) => `<li style="--i:${i}"><a href="${root}#${n.id}" data-nav="${n.id}"><span class="mobile-menu__num">0${i + 1}</span><span class="mobile-menu__label">${n.label}</span>${icon('arrowRight', { size: 20 })}</a></li>`
+          )
+          .join('')}
+      </ul>
+    </nav>
     <div class="mobile-menu__foot">
-      <a class="btn btn--gold" href="${root}#kontakti">Na Kontaktoni</a>
-      <a class="mobile-menu__phone" href="tel:${site.phoneHref}">${icon('phone', { size: 18 })} ${site.phone}</a>
+      <a class="btn btn--gold btn--block" href="${root}#kontakti">Na Kontaktoni ${icon('arrowRight', { size: 18 })}</a>
+      <div class="mobile-menu__quick">
+        <a href="tel:${site.phoneHref}">${icon('phone', { size: 18 })}<span>Telefono</span></a>
+        <a href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener">${whatsappIcon(18)}<span>WhatsApp</span></a>
+      </div>
+      <p class="mobile-menu__address">${icon('pin', { size: 16 })} ${site.address.village}, ${site.address.municipality}, ${site.address.country}</p>
     </div>
   </div>
-</header>`;
+</div>`;
 }
 
 function footer({ root }) {

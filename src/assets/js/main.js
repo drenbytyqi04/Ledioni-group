@@ -42,25 +42,46 @@
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 
-  /* ---------- Menyja në celular ---------- */
+  /* ---------- Menyja në celular (panel nga e djathta) ---------- */
   var toggle = $('[data-nav-toggle]');
   var menu = $('[data-mobile-menu]');
+  var lastFocus = null;
   var setMenu = function (open) {
     if (!toggle || !menu) return;
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Mbyll menynë' : 'Hap menynë');
-    header.classList.toggle('menu-open', open);
+    menu.classList.toggle('is-open', open);
+    menu.setAttribute('aria-hidden', String(!open));
+    if (open) menu.removeAttribute('inert'); else menu.setAttribute('inert', '');
     document.body.classList.toggle('no-scroll', open);
-    menu.hidden = !open;
-    if (open) { var first = $('a', menu); if (first) first.focus({ preventScroll: true }); }
+    if (open) {
+      lastFocus = document.activeElement;
+      setTimeout(function () { var c = $('.mobile-menu__close', menu); if (c) c.focus({ preventScroll: true }); }, 350);
+    } else if (lastFocus && lastFocus.focus) {
+      lastFocus.focus({ preventScroll: true });
+    }
   };
-  if (toggle) {
-    toggle.addEventListener('click', function () { setMenu(toggle.getAttribute('aria-expanded') !== 'true'); });
-    $$('a', menu).forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  if (toggle && menu) {
+    toggle.addEventListener('click', function () { setMenu(!menu.classList.contains('is-open')); });
+    $$('[data-menu-close]', menu).forEach(function (el) { el.addEventListener('click', function () { setMenu(false); }); });
+    $$('a', menu).forEach(function (a) { a.addEventListener('click', function () { lastFocus = null; setMenu(false); }); });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setMenu(false); toggle.focus(); }
+      if (!menu.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { setMenu(false); return; }
+      if (e.key === 'Tab') {
+        var f = $$('a, button', $('.mobile-menu__panel', menu)), first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
-    window.addEventListener('resize', function () { if (window.innerWidth > 1100) setMenu(false); });
+    // Mbyllet me rrëshqitje djathtas
+    var sx = null;
+    menu.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    menu.addEventListener('touchend', function (e) {
+      if (sx !== null && e.changedTouches[0].clientX - sx > 70) setMenu(false);
+      sx = null;
+    }, { passive: true });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1100 && menu.classList.contains('is-open')) setMenu(false); });
   }
 
   /* ---------- Titujt ndahen në fjalë për animacion ---------- */
@@ -154,8 +175,8 @@
   }
 
   /* ---------- Theksimi i menysë sipas seksionit aktiv ---------- */
-  var navLinks = $$('.nav__link[data-nav]');
-  var sections = navLinks.map(function (l) { return document.getElementById(l.getAttribute('data-nav')); }).filter(Boolean);
+  var navLinks = $$('.nav__link[data-nav], .mobile-menu__list a[data-nav]');
+  var sections = $$('.nav__link[data-nav]').map(function (l) { return document.getElementById(l.getAttribute('data-nav')); }).filter(Boolean);
   if (sections.length && 'IntersectionObserver' in window) {
     var setActive = function (id) {
       navLinks.forEach(function (l) {
