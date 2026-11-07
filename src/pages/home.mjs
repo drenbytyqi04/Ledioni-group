@@ -238,9 +238,12 @@ export function home() {
   </div>
 </section>`;
 
-  const formAttrs = site.formEndpoint
-    ? `action="${esc(site.formEndpoint)}" method="POST" data-endpoint="${esc(site.formEndpoint)}"`
-    : `action="${root}faleminderit/" method="POST" data-netlify="true" netlify-honeypot="adresa-web" data-endpoint="netlify"`;
+  const formAttrs =
+    site.formMode === 'endpoint'
+      ? `action="${esc(site.formEndpoint)}" method="POST" data-endpoint="${esc(site.formEndpoint)}"`
+      : site.formMode === 'mailto'
+        ? `action="mailto:${site.email}" method="POST" data-endpoint="mailto" data-mailto="${site.email}"`
+        : `action="${root}faleminderit/" method="POST" data-netlify="true" netlify-honeypot="adresa-web" data-endpoint="netlify"`;
 
   const contact = `
 <section class="section section--alt contact" id="kontakti" aria-labelledby="contact-title">

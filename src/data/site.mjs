@@ -14,7 +14,12 @@ export const site = {
 
   // Domeni i faqes. Në Netlify merret automatikisht nga variabla URL.
   // Nëse keni domen tjetër, vendoseni këtu ose si SITE_URL.
-  url: (process.env.SITE_URL || process.env.URL || 'https://ledionigroup.com').replace(/\/$/, ''),
+  url: (
+    process.env.SITE_URL ||
+    process.env.URL || // Netlify
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) || // Vercel
+    'https://ledionigroup.com'
+  ).replace(/\/$/, ''),
 
   phone: '+383 49 172 995',
   phoneHref: '+38349172995',
@@ -32,8 +37,11 @@ export const site = {
 
   // Formulari i kontaktit:
   //  - Bosh ('') = përdoret Netlify Forms (funksionon automatikisht kur faqja hostohet në Netlify).
-  //  - Ose vendosni një adresë Formspree, p.sh. 'https://formspree.io/f/abcdwxyz'.
+  //  - Ose vendosni një adresë Formspree, p.sh. 'https://formspree.io/f/abcdwxyz'
+  //    (ose variablën FORM_ENDPOINT në Vercel/Netlify).
+  //  - Në Vercel pa FORM_ENDPOINT: formulari hap programin e email-it me mesazhin të plotësuar.
   formEndpoint: process.env.FORM_ENDPOINT || '',
+  formMode: process.env.FORM_ENDPOINT ? 'endpoint' : process.env.VERCEL ? 'mailto' : 'netlify',
 
   // Rrjetet sociale — vendosni linket kur t'i keni. Bosh = ikona nuk shfaqet si link.
   social: {

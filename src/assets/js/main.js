@@ -206,6 +206,14 @@
 
       var endpoint = form.getAttribute('data-endpoint');
       var data = new FormData(form);
+      if (endpoint === 'mailto') {
+        var body = 'Emri: ' + data.get('emri') + '\nEmail: ' + data.get('email') + '\nTelefoni: ' + (data.get('telefoni') || '-') + '\n\n' + data.get('mesazhi');
+        window.location.href = 'mailto:' + form.getAttribute('data-mailto') +
+          '?subject=' + encodeURIComponent('Mesazh nga faqja e Ledioni Group — ' + data.get('emri')) +
+          '&body=' + encodeURIComponent(body);
+        alertBox(true, 'Po hapet programi i email-it.', 'Mesazhi juaj është i plotësuar — mjafton ta dërgoni. Nëse nuk hapet, na shkruani direkt në ' + form.getAttribute('data-mailto') + '.');
+        return;
+      }
       var req;
       if (endpoint === 'netlify') {
         req = fetch('/', {

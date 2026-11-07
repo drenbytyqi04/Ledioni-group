@@ -35,7 +35,15 @@ npm run images   # rigjeneron favicon-at dhe og-image.jpg nga logoja (kërkon Pl
    Te *Site configuration → Forms → Form notifications* shtoni njoftim me email te `ledibytyqi5@gmail.com`, që mesazhet t'ju vijnë në email.
 3. Lidhni domenin (p.sh. `ledionigroup.com`). Linket kanonike dhe `sitemap.xml` e marrin domenin automatikisht.
 
-Për host tjetër (Vercel, cPanel etj.):
+## Publikimi në Vercel
+`vercel.json` e konfiguron vetë ndërtimin (`node build.mjs`, dosja `dist`). Domeni merret automatikisht.
+Pa variablën `FORM_ENDPOINT`, formulari hap programin e email-it të vizitorit me mesazhin të plotësuar.
+Që mesazhet të dërgohen direkt:
+1. Krijoni formular falas në [Formspree](https://formspree.io), me email-in `ledibytyqi5@gmail.com`.
+2. Në Vercel → *Settings → Environment Variables* shtoni `FORM_ENDPOINT` = adresa e Formspree (p.sh. `https://formspree.io/f/xxxx`).
+3. Bëni *Redeploy*.
+
+Për host tjetër (cPanel etj.):
 - Ndërtojeni faqen me `npm run build` dhe ngarkoni dosjen `dist/`.
 - Formulari: krijoni një formular falas në [Formspree](https://formspree.io) dhe vendosni adresën te `formEndpoint` në `src/data/site.mjs`.
 - Domeni: vendoseni te `url` në `src/data/site.mjs`.
